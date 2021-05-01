@@ -1,0 +1,25 @@
+{
+  "name": "cenas",
+  "version": "1.0.0",
+  "description": "brew install sqlcipher pip3 install -r requirements.txt",
+  "main": "index.js",
+  "scripts": {
+    "start": "pm2 start bot.py --name bot --interpreter python3",
+    "restart": "pm2 restart bot",
+    "stop": "pm2 stop bot",
+    "postinstall": "pip3 install -r requirements.txt"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alicescfernandes/driverslicense-autoschedule.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alicescfernandes/driverslicense-autoschedule/issues"
+  },
+  "homepage": "https://github.com/alicescfernandes/driverslicense-autoschedule#readme",
+  "dependencies": {
+    "pm2": "^4.5.6"
+  }
+}
