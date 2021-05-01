@@ -2,3 +2,5 @@ tabula
 python-dotenv
 pysqlcipher3
 schedule
+python-dateutil
+numpy
