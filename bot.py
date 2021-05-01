@@ -1,5 +1,6 @@
 import modules.database
 from modules.emails import send_email
+import schedule
 
 #config = dotenv_values(".env")
 """

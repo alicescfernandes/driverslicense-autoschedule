@@ -1,3 +1,4 @@
 tabula
 python-dotenv
 pysqlcipher3
+schedule
