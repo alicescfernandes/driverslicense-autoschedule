@@ -1,4 +1,3 @@
-import tabula
 import modules.database
 from modules.emails import send_email
 
@@ -15,10 +14,4 @@ get the first 3 classes by 19h
 send email
 add them to the db 
 
-df = tabula.read_pdf('elite.pdf')[0]
-
-df.columns = df.columns.str.replace('\r', '')
-print(df[10:11])
-data = df[10:11]
-data.to_excel('data.xlsx')
 """
