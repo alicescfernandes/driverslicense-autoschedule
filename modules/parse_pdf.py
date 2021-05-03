@@ -8,7 +8,7 @@ config = dotenv_values(".env")
 def parse_pdf():
     aulas = {}
     df = None
-    dataframes = read_pdf("./assets/horario_2.pdf", pages=1)
+    dataframes = read_pdf("./assets/horario.pdf", pages=1)
 
     # read_pdf returns multiple dataframes, we should only use the one with proper rows and columns
     for d in dataframes:

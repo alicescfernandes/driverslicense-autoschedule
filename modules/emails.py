@@ -30,5 +30,5 @@ def send_email(aulas):
 
 
 if __name__ == "__main__":
-    aulas = (("Dia 3", " Aula 20"), ("Dia 4", "Aula 1"), ("Dia 5", "Aula 21"))
+    aulas = [("Dia 3", " Aula 20"), ("Dia 4", "Aula 1"), ("Dia 5", "Aula 21")]
     send_email(aulas)
