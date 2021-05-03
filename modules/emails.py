@@ -19,7 +19,7 @@ def send_email(aulas):
 
         msg['Subject'] = 'Marcação de Aulas'
         msg['From'] = config["SMTP_SENDER"]
-        msg['To'] = config["SMTP_SENDER"]
+        msg['To'] = config["RECEIVER"]
 
         s = smtplib.SMTP('smtp.gmail.com', 587)
         s.ehlo()

@@ -1,9 +1,12 @@
 from modules.database import Database
 from modules.emails import send_email
 from modules.parse_pdf import parse_pdf
-
 from modules.scrapper import * 
 import schedule
+import time
+
+
+# TODO: Send notification to phone
 
 #config = dotenv_values(".env")
 """
@@ -28,7 +31,6 @@ def run_bot():
     (success, date_modified) = download_pdf()
     if(not success): return
     date_iso = date_modified.strftime("%Y-%m-%d")
-    
     (success, file_atualizado) = db.validar_data(date_iso)
     if(not success): return
     if(file_atualizado):
@@ -53,9 +55,10 @@ def run_bot():
 
         for aula in aulas_por_marcar:
             print(aula, db.adicionar_aula(aula,"1970-01-01")) #TODO: Add proper date
+
            
-   
-
+schedule.every(5).minutes.do(run_bot)
 run_bot()
-
-
+while True:
+    schedule.run_pending()
+    time.sleep(1)
