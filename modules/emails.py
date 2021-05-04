@@ -14,6 +14,7 @@ def send_email(aulas):
 
     with open("./assets/email.txt") as fp:
         email_body = fp.read().replace("<aulas>", aulas_text)
+        email_body = fp.read().replace("<numero>", config["NUMERO_ALUNA"])
         msg = EmailMessage()
         msg.set_content(email_body)
 
