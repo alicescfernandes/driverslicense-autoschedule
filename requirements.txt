@@ -4,3 +4,4 @@ pysqlcipher3
 schedule
 python-dateutil
 numpy
+gspread

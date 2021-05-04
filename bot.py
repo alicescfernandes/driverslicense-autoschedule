@@ -1,4 +1,4 @@
-from modules.database import Database
+from modules.sheets import Database
 from modules.emails import send_email
 from modules.parse_pdf import parse_pdf
 from modules.scrapper import * 
@@ -57,7 +57,7 @@ def run_bot():
             print(aula, db.adicionar_aula(aula,"1970-01-01")) #TODO: Add proper date
 
            
-schedule.every(5).minutes.do(run_bot)
+schedule.every(30).minutes.do(run_bot)
 run_bot()
 while True:
     schedule.run_pending()
