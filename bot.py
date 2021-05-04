@@ -43,20 +43,27 @@ def run_bot():
         print("PDF already updated")
         return;
     else:
+        (_,marcadas) = db.get_total_marcacoes()
+        if(marcadas >= 3):
+            print("Máximo de aulas marcadas")
+            return
+        marcacoes_disponiveis = 3 - marcadas
         db.get_todas_aulas()
         aulas = parse_pdf()
         aulas_por_marcar = []
         aulas_por_marcar_format = []
+
+        current_dia = date.today().day
         # ver aulas já feitas
         for aula in aulas:
             (_,existe) = db.procurar_aula(aula) 
             dep_marcada = db.verificar_deps(aula)
-            if(not existe and dep_marcada == True):
+            if(aulas[aula] > current_dia and not existe and dep_marcada == True):
                 aulas_por_marcar_format.append(("Dia {0}".format(aulas[aula]),"Aula {0}".format(aula)))
                 aulas_por_marcar.append([aula, aulas[aula]])
         
-        aulas_por_marcar = aulas_por_marcar[0:3]
-        aulas_por_marcar_format = aulas_por_marcar_format[0:3]
+        aulas_por_marcar = aulas_por_marcar[0:marcacoes_disponiveis]
+        aulas_por_marcar_format = aulas_por_marcar_format[0:marcacoes_disponiveis]
         db.upsert_atualizar(date_iso)
         send_email(aulas_por_marcar_format)
 

@@ -53,9 +53,10 @@ class Database:
         sh = self.get_worksheet()
        
         try:
-            sh.insert_row([numero,marcacao])
+            sh.append_row([numero,marcacao],value_input_option="USER_ENTERED",insert_data_option='INSERT_ROWS')
             sh.sort((1,'asc'))
         except Exception as e:
+            print(e)
             success = False
 
         return success
@@ -94,7 +95,7 @@ class Database:
         sh = self.get_worksheet(name="update")
 
         try:
-            sh.update_cell(1,1,data)
+            sh.update_cell(2,1,data)
             success = True
         except Exception as e:
             print(e)
@@ -106,12 +107,25 @@ class Database:
         sh = self.get_worksheet(name="update")
 
         try:
-            [[date]] = sh.get("A1")
+            [[date]] = sh.get("A2")
             success = True
         except Exception as e:
             print(e)
 
         return (success,data == date)
+   
+    def get_total_marcacoes(self):
+        success = False
+        result = False
+        sh = self.get_worksheet(name="update")
+        
+        try:
+            [[result]] = sh.get("B2")
+            success = True
+        except Exception as e:
+            print(e)
+
+        return (success,int(result))
 
 
 if __name__ == "__main__":
@@ -124,6 +138,7 @@ if __name__ == "__main__":
     #print(db.procurar_aula(1))
     db.get_todas_aulas()
     print(db.procurar_aula(23))
+    print(db.get_total_marcacoes())
     #print(db.validar_data("2021-05-03"))
     #print(db.verificar_deps(17))
     #print(db.verificar_deps(2))
