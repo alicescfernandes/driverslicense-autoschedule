@@ -4,7 +4,7 @@ from modules.parse_pdf import parse_pdf
 from modules.scrapper import * 
 import schedule
 import time
-
+from datetime import date
 
 # TODO: Send notification to phone
 
@@ -25,10 +25,16 @@ add them to the db
 
 db = Database()
 def run_bot():
+  
     (success, is_posted) =  check_facebook()
     if(not success or  not is_posted): return
     
     (success, date_modified) = download_pdf()
+
+    year = date.today().year
+    month = date_modified.month + 1
+  
+
     if(not success): return
     date_iso = date_modified.strftime("%Y-%m-%d")
     (success, file_atualizado) = db.validar_data(date_iso)
@@ -37,6 +43,7 @@ def run_bot():
         print("PDF already updated")
         return;
     else:
+        db.get_todas_aulas()
         aulas = parse_pdf()
         aulas_por_marcar = []
         aulas_por_marcar_format = []
@@ -46,7 +53,7 @@ def run_bot():
             dep_marcada = db.verificar_deps(aula)
             if(not existe and dep_marcada == True):
                 aulas_por_marcar_format.append(("Dia {0}".format(aulas[aula]),"Aula {0}".format(aula)))
-                aulas_por_marcar.append(aula)
+                aulas_por_marcar.append([aula, aulas[aula]])
         
         aulas_por_marcar = aulas_por_marcar[0:3]
         aulas_por_marcar_format = aulas_por_marcar_format[0:3]
@@ -54,7 +61,7 @@ def run_bot():
         send_email(aulas_por_marcar_format)
 
         for aula in aulas_por_marcar:
-            print(aula, db.adicionar_aula(aula,"1970-01-01")) #TODO: Add proper date
+            print(aula[0], db.adicionar_aula(aula[0],"{0}-{1}-{2}".format(year,str(month).zfill(2),str(aula[1]).zfill(2)))) #TODO: Add proper date
 
            
 schedule.every(30).minutes.do(run_bot)

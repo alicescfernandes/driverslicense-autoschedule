@@ -27,6 +27,7 @@ aulas_dependencias = {
 
 class Database:
     gc = None
+    aulas = []
 
     def __init__(self):
         self.gc = gspread.service_account("./credentials.json")
@@ -64,13 +65,25 @@ class Database:
         success = False
         return success
 
-    def procurar_aula(self, numero):
+    def get_todas_aulas(self):
         success = False
-        exists = False
+        result = []
         sh = self.get_worksheet()
         try:
-            result = sh.find(str(numero))
-            exists = result is not None
+            [result] = sh.get("A1:A99",major_dimension="COLUMNS")
+            self.aulas = result
+        except Exception as e:
+            ""
+        return (success, result)
+
+    def procurar_aula(self, numero):
+        if(self.aulas is None): self.get_todas_aulas()
+        success = False
+        exists = False
+        try:
+            exists = str(numero) in self.aulas
+            success = True
+
         except Exception as e:
             ""
         return (success, exists)
@@ -109,7 +122,9 @@ if __name__ == "__main__":
     #db.adicionar_aula(24, "2021-05-22 14:00:00.00")
     #print(db.procurar_aula(20))
     #print(db.procurar_aula(1))
-    print(db.validar_data("2021-05-03"))
-    print(db.verificar_deps(17))
-    print(db.verificar_deps(2))
-    print(db.verificar_deps(28))
+    db.get_todas_aulas()
+    print(db.procurar_aula(23))
+    #print(db.validar_data("2021-05-03"))
+    #print(db.verificar_deps(17))
+    #print(db.verificar_deps(2))
+    #print(db.verificar_deps(28))
