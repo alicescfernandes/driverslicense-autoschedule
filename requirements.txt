@@ -1,4 +1,4 @@
-tabula
+tabula-py
 python-dotenv
 pysqlcipher3
 schedule
