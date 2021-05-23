@@ -116,10 +116,11 @@ class Database:
         success = False
         exists = False
         sh = self.get_worksheet(name="config")
-
+        
         try:
             sh.update_cell(2,1,data)
             success = True
+            print("PDF Atualizado")
         except Exception as e:
             print(e)
         return (success)
