@@ -68,7 +68,7 @@ class Database:
 
 
     # Retorna true se aula pode ser marcada, false se aula não pode ser marcada
-    def verificar_deps(self,aula):
+    def verificar_deps(self,aula, premarcacao):
         # Verificar horas práticas
         if(aula in aulas_praticas_dependencias):
             horas = aulas_praticas_dependencias[aula]
@@ -78,8 +78,14 @@ class Database:
 
         # Verificar aulas sequenciais
         if(aula in aulas_dependencias):
+            existe = False
             dependencia = aulas_dependencias[aula]
             (_,existe) = self.procurar_aula(dependencia)
+     
+            if(existe == False):
+                dependencia = aulas_dependencias[aula]
+                existe = dependencia in premarcacao
+
             return existe
         else:
             return True #Sem deps

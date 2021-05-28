@@ -3,7 +3,7 @@ import requests
 from dateutil.parser import parse
 from dotenv import dotenv_values
 from datetime import datetime
-
+import re
 meses = ["Janeiro", "Fevereiro", "Março","Abril","Maio","Junho","Julho","Agosto","Setempro"]
 config = dotenv_values(".env")
 
@@ -54,7 +54,7 @@ def check_facebook():
         if(current_day >= 25):
             mes = meses[today.month]
             print('Checking for {0} de 2021'.format(mes))
-            next_month_online = '{0} de 2021'.format(mes) in str(r.content)
+            next_month_online = re.search('{0}.*2021'.format(mes),str(r.content))
         else:
             print('Not checking for new FB post')
 

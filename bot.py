@@ -54,16 +54,19 @@ def run_bot():
         aulas = parse_pdf()
         aulas_por_marcar = []
         aulas_por_marcar_format = []
+        aulas_pre_marcacao = []
 
         current_dia = date.today().day
+
         # ver aulas já feitas
         for aula in aulas:
             (_,existe) = db.procurar_aula(aula) 
-            dep_marcada = db.verificar_deps(aula)
-            if(aulas[aula] > current_dia and not existe and dep_marcada == True):
+            dep_marcada = db.verificar_deps(aula, aulas_pre_marcacao)
+            if(not existe and dep_marcada == True):
                 aulas_por_marcar_format.append(("Dia {0}".format(aulas[aula]),"Aula {0}".format(aula)))
                 aulas_por_marcar.append([aula, aulas[aula]])
-                
+                aulas_pre_marcacao.append(aula)
+      
         aulas_por_marcar = aulas_por_marcar[0:marcacoes_disponiveis]
         aulas_por_marcar_format = aulas_por_marcar_format[0:marcacoes_disponiveis]
         db.upsert_atualizar(date_iso)
