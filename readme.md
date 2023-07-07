@@ -17,6 +17,8 @@ My driving school publishes a PDF with the schedule for the month, and i know wh
 6. After the email mark those classes as booked internally, and i used Google Sheets and `gspread` because i could see the spreadsheet on my phone, but also tried a SQLite database
 7. Job done, i can now not worry too much about booking classes
 
+The bot had a schedule, that ran every 30 minutes, and it looked to the HTTP Header `Last-Modified` to check if the file was modified after a given date that was on Google Sheets
+
 I eventually ran this inside docker because my RasPi had a lot of cool stuff running, and it was great to stop code from messing with other code
 
 ## Did this worked?
