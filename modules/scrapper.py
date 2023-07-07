@@ -23,7 +23,7 @@ def download_pdf():
         "upgrade-insecure-requests": "1"
     }
 
-  
+
     success = False
     url = config["HORARIO_PDF"]
     print("Reading from ", url)

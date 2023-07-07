@@ -1,8 +1,6 @@
 from pysqlcipher3 import dbapi2 as sqlite3
 from dotenv import dotenv_values
 
-# TODO: Marcar as restantes aulas por dia
-
 config = dotenv_values("./.env")
 
 aulas_dependencias = {

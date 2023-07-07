@@ -1,0 +1,15 @@
+# Misc
+NUMERO_ALUNA=""
+HORARIO_PDF = "link/to/pdf.pdf"
+FACEBOOK_URL = "link/to/facebook/page"
+
+# Google sheets
+SHEET_NAME=""
+
+# SQLite Database
+DB_PASSWORD=""
+
+# Email config
+SMTP_SENDER=""
+RECEIVER=""
+SMTP_PWD=""
